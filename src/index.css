@@ -1,0 +1,345 @@
+
+@import "tailwindcss";
+
+
+/* GLOBAL */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #07111f;
+}
+
+
+/* MAIN BACKGROUND */
+.weather-app {
+  isolation: isolate;
+  background: #07111f;
+}
+
+.weather-background {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: backgroundReveal 1.5s ease both;
+}
+
+@keyframes backgroundReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* DARK OVERLAY */
+.weather-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 12, 28, 0.85),
+      rgba(3, 12, 28, 0.35)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3, 12, 28, 0.55),
+      transparent 65%
+    );
+  pointer-events: none;
+}
+
+
+/* WEATHER EFFECT CONTAINER */
+.weather-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+
+/* CLOUD ANIMATIONS */
+.cloud-layer {
+  position: absolute;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 35%,
+      rgba(210, 230, 255, 0.20),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 65% 25%,
+      rgba(220, 235, 255, 0.15),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 80% 65%,
+      rgba(190, 220, 255, 0.14),
+      transparent 35%
+    );
+
+  filter: blur(35px);
+  will-change: transform;
+}
+
+.cloud-one {
+  animation: cloudMoveOne 55s linear infinite alternate;
+}
+
+.cloud-two {
+  opacity: 0.7;
+  animation: cloudMoveTwo 75s linear infinite alternate;
+}
+
+.cloud-three {
+  opacity: 0.5;
+  animation: cloudMoveThree 90s ease-in-out infinite alternate;
+}
+
+@keyframes cloudMoveOne {
+  from {
+    transform: translateX(-5%) translateY(0);
+  }
+
+  to {
+    transform: translateX(8%) translateY(3%);
+  }
+}
+
+@keyframes cloudMoveTwo {
+  from {
+    transform: translateX(7%) translateY(2%);
+  }
+
+  to {
+    transform: translateX(-8%) translateY(-2%);
+  }
+}
+
+@keyframes cloudMoveThree {
+  from {
+    transform: translateX(-3%) translateY(3%);
+  }
+
+  to {
+    transform: translateX(5%) translateY(-3%);
+  }
+}
+
+
+/* RAIN ANIMATION */
+.rain-layer {
+  position: absolute;
+  inset: -100px;
+  background-repeat: repeat;
+  pointer-events: none;
+  will-change: background-position;
+}
+
+.rain-back {
+  opacity: 0.20;
+
+  background-image:
+    repeating-linear-gradient(
+      175deg,
+      transparent 0 12px,
+      rgba(210, 235, 255, 0.5) 13px,
+      transparent 14px 35px
+    );
+
+  background-size: 70px 100px;
+  animation: rainFall 1.4s linear infinite;
+}
+
+.rain-middle {
+  opacity: 0.35;
+
+  background-image:
+    repeating-linear-gradient(
+      175deg,
+      transparent 0 18px,
+      rgba(220, 240, 255, 0.65) 19px,
+      transparent 20px 48px
+    );
+
+  background-size: 110px 130px;
+  animation: rainFall 0.9s linear infinite;
+}
+
+.rain-front {
+  opacity: 0.15;
+
+  background-image:
+    repeating-linear-gradient(
+      175deg,
+      transparent 0 25px,
+      white 26px,
+      transparent 27px 65px
+    );
+
+  background-size: 150px 160px;
+  animation: rainFall 0.65s linear infinite;
+}
+
+@keyframes rainFall {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -50px 300px;
+  }
+}
+
+
+/* LIGHTNING EFFECT */
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(220, 240, 255, 0.65);
+  opacity: 0;
+  animation: lightning 7s infinite;
+}
+
+.lightning-second {
+  animation-delay: 3.2s;
+  animation-duration: 9s;
+}
+
+@keyframes lightning {
+  0%, 88%, 90%, 94%, 100% {
+    opacity: 0;
+  }
+
+  89% {
+    opacity: 0.65;
+  }
+
+  91% {
+    opacity: 0.05;
+  }
+
+  92% {
+    opacity: 0.4;
+  }
+}
+
+
+/* SUN GLOW */
+.sun-glow {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255, 220, 130, 0.25);
+  filter: blur(75px);
+
+  animation: sunPulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes sunPulse {
+  from {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  to {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+
+/* NIGHT STARS */
+.night-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+
+  background-image:
+    radial-gradient(
+      white 1px,
+      transparent 1px
+    );
+
+  background-size: 65px 65px;
+  animation: starMove 25s linear infinite;
+}
+
+@keyframes starMove {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(30px);
+  }
+}
+
+
+/* WEATHER ICON */
+.weather-icon {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+
+/* REDUCE MOTION ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 640px) {
+  .sun-glow {
+    width: 180px;
+    height: 180px;
+  }
+
+  .cloud-layer {
+    filter: blur(22px);
+  }
+}
